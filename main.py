@@ -8,14 +8,15 @@ api_key = os.getenv("BINANCE_API_KEY")
 api_secret = os.getenv("BINANCE_API_SECRET")
 testnet = os.getenv("BINANCE_TESTNET", "false").lower() == "true"
 
-client = Client(api_key, api_secret)
+# 👇 clave: evitar ping inicial
+client = Client(api_key, api_secret, testnet=testnet)
 
 if testnet:
     client.API_URL = "https://testnet.binance.vision/api"
 
 @app.route("/")
 def home():
-    return "Bot running (testnet)"
+    return "Bot running TESTNET (no ping)"
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
